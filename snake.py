@@ -12,14 +12,18 @@ class GameUI:
         self.direction = [0, 1]
         self.directions = [[0, 1] for x in range (2)]
         self.running = False
+        self.score = 0
+
+        self.scoreText = tk.Label(master, text = "0", justify = "center", font = ("Arial", 50))
+        self.scoreText.pack()
 
         self.canvas = tk.Canvas(master, height = self.cellSize * self.size, width = self.cellSize * self.size)
         self.canvas.pack()
 
         self.drawGrid()
 
-        self.button = tk.Button(master, text = "Play", justify = "center", width = 20, height = 10, padx = 10, pady = 10, command = self.toggle_running)
-        self.button.pack(side=tk.LEFT)
+        self.button = tk.Button(master, text = "Play", justify = "center", font = ("Arial", 25), width = 20, height = 10, command = self.toggle_running)
+        self.button.pack()
 
         self.loseText = tk.Label(master, text = "You Lose", width = 20, height = 10, padx = 30)
 
@@ -124,6 +128,8 @@ class GameUI:
             else:
                 self.grid[self.leading[0]][self.leading[1]] = 1
                 self.grid = self.generateFruit()
+                self.score += 1
+                self.scoreText.configure(text = str(self.score))
 
             self.grid[self.leading[0]][self.leading[1]] = 1
 
